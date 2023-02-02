@@ -19,7 +19,7 @@ $resultado = mysqli_query($link, $sql);
     <div class="container">
         <table border="1">
         <tr>
-            <th>Nome</tr>
+            <th>Nome</th>
             <th>Alterar Dados</th>
             <th>Excuir Usuario</th>
         </tr>
@@ -28,8 +28,8 @@ $resultado = mysqli_query($link, $sql);
                 ?>
                 <tr>
                 <td><?= $tbl[1]?></td>
-                <td><a href="alterarusuario.php?id=<?=$tbl[0]?>"><input type="button" value="Alterar"></a></td>
-                <td><a href="excluirusuario.php?id=<?=$tbl[0]?>"><input type="button" value="EXCLUIR"></a></td>
+                <td><a href="alterausuario.php?id=<?=$tbl[0]?>"><input type="button" value="Alterar"></a></td>
+                <td><a href="excluiusuario.php?id=<?=$tbl[0]?>"><input type="button" value="EXCLUIR"></a></td>
                 </tr>
                 <?php
             }
