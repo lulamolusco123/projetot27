@@ -35,9 +35,9 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     <a href="homesistema.html"><input type="button" id="meuhome" value="HOME SISTEM"></a>
     <div>
         <!-- script para mostrar senha-->
-<script>
+        <script>
             function mostrarsenha(){
-                var tipo = document.getElementeById("senha");
+                var tipo = document.getElementById("senha");
                 if(tipo.type == "password"){
                     tipo.type = "text";                                      
             }

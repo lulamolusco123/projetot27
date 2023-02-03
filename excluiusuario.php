@@ -2,7 +2,7 @@
 include("conectadb.php");
 
 if($_SERVER['REQUEST_METHOD']=='POST'){
-    $id = $POST['id'];
+    $id = $_POST['id'];
     $sql = "DELETE FROM usuarios WHERE usu_id = '$id'";
     mysqli_query($link, $sql);
     header("Location: listausuario.php");
