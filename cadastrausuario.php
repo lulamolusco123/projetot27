@@ -1,4 +1,5 @@
 <?php
+//coleta as variaveis do name do html e abre a conecção com banco
 if($_SERVER["REQUEST_METHOD"] =="POST"){
     $nome = $_POST['nome'];
     $senha = $_POST['senha'];
@@ -11,6 +12,7 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
     while($tbl = mysqli_fetch_array($resultado)){
         $cont = $tbl[0];
     }
+    //vareficação visual se usuario existe ou nao
     if($cont==1){
         echo"<script>window.alert('USUARIO JÁ CADASTRADO!');</SCRIPT>";
     }
