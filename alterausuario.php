@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $senha = $_POST['senha'];
     $ativo = $_POST['ativo'];
     //instrução sql para atulização de usuarios e senha
-    $sql = "UPDATE usuarios SET usu_senha = '$senha', usu_nome='$nome' WHERE usu_id ='$id'";
+    $sql = "UPDATE usuarios SET usu_senha = '$senha', usu_nome='$nome', usu_ativo= '$ativo' WHERE usu_id ='$id'";
     mysqli_query($link, $sql);
     header("Location: listausuario.php");
     echo "<script>alert('Usuario alterado com Sucesso!');</script>";
@@ -23,6 +23,7 @@ $resultado = mysqli_query($link, $sql);
 while($tbl = mysqli_fetch_array($resultado)){
     $nome = $tbl[1];
     $senha = $tbl[2];
+    $ativo= $tbl[3];
 
 }
 ?>
@@ -47,8 +48,8 @@ while($tbl = mysqli_fetch_array($resultado)){
         <br></br>
         <label>Status: <?=$check = ($ativo == 's')?"ATIVO":"INATIVO";?></label>
         <br></br>
-        <input type="radio" name="ativo" value="s">ATIVAR<BR>
-        <input type="radio" name="ativo" value="n">DESATIVAR
+        <input type="radio" name="ativo" value="s" <?=$ativo == "s"? "checked":""?>>ATIVAR<br>
+        <input type="radio" name="ativo" value="n" <?=$ativo == "n"? "checked":""?>>INATIVO
         <input type="submit" value="SALVAR">
         </form>
     </div>

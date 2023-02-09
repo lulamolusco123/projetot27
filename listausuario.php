@@ -4,7 +4,7 @@ include("conectadb.php");
 
 //passa a instrução para o banco de dados
 //função da instrução: listar todos os conteudos da tabela usuarios
-$sql = "SELECT * FROM usuarios";
+$sql = "SELECT * FROM usuarios WHERE usu_ativo = 's'";
 $resultado = mysqli_query($link, $sql);
 ?>
 
@@ -18,31 +18,31 @@ $resultado = mysqli_query($link, $sql);
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <a href="homesistema.html"><input type="button" id="meuhome" value="home sistema"></a>
+    <a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
     <div class="container">
+        <input type="radio" name="listadesativados" value="n" <?checar = ($tbl[3] == "n")? "checked":""?>LISTA DESATIVADOS<br>
         <table border="1">
-        <tr>
-            <th>Nome</th>
-            <th>Alterar Dados</th>
-            <th>Excuir Usuario</th>
-        </tr>
-        <?php
-            while ($tbl = mysqli_fetch_array($resultado)){
-                ?>
-                <tr>
-                <td><?= $tbl[1]?></td> <!-- traz somente a coluna nome para apresentar na tabela-->
-                <!-- ao clicar no botão ele ja trara o id do usuario para a pagina do alterar -->
-                <td><a href="alterausuario.php?id=<?=$tbl[0]?>"><input type="button" value="Alterar"></a></td>
-                <!-- ao clicar no botão ele ja trara o id do usuario para a pagina do excluir -->
-                <!--<td><a href="excluiusuario.php?id=<//?=$tbl[0]?>"><input type="button" value="EXCLUIR"></a></td>
-                </td><?=tbl[3]?></td>
-                <?php
-            }
+            <tr>
+                <th>NOME</th>
+                <th>ALTERAR DADOS</th>
+                <th>EXCLUIR USUARIO</th>
+            </tr>
+            <?php
+                while ($tbl = mysqli_fetch_array($resultado)){
+                    ?>
+                    <tr>
+                        <td><?= $tbl[1]?></td> <!-- traz somente a coluna nome para apresentar na tabela-->
+                        <!-- Ao clicar no botão ele já trará o id do usuario para a página do alterar -->
+                        <td><a href="alterausuario.php?id=<?= $tbl[0]?>"><input type="button" value="ALTERAR"></a></td>
+                         <!-- Ao clicar no botão ele já trará o id do usuario para a página do excluir -->
+                        <!-- <td><a href="excluiusuario.php?id=<//?=$tbl[0]?>"><input type="button" value="EXCLUIR"></a></td> -->
+                        <td><?=($tbl[3] == "s")?"SIM":"NAO"?></td>
+                    </tr>
+                    <?php
+                }
             ?>
-
         </table>
-        </div>
-
-    
+    </div>
 </body>
+
 </html>
