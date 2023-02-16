@@ -2,59 +2,63 @@
 //coleta as variaveis do name do html e abre a conecção com banco
 if($_SERVER["REQUEST_METHOD"] =="POST"){
     $nome = $_POST['nome'];
-    $senha = $_POST['senha'];
+    $produto = $_POST['produto'];
+    $valor = $_POST['valor'];
+    $descrição = $_POST['descrição'];
     include("conectadb.php");
-
-
-    #VERIFICA USUARIO EXISTENTE
-    $sql ="SELECT COUNT(usu_id) from usuarios WHERE usu_nome = '$nome' AND usu_SENHA = '$senha'";
+    
+    
+    $sql ="SELECT COUNT(pro_id) from produto WHERE usu_nome = '$nome'";
     $resultado = mysqli_query($link,$sql);
     while($tbl = mysqli_fetch_array($resultado)){
         $cont = $tbl[0];
     }
-    //vareficação visual se usuario existe ou nao
     if($cont==1){
-        echo"<script>window.alert('USUARIO JÁ CADASTRADO!');</SCRIPT>";
+        echo"<script>window.alert('PRODUTO JÁ CADASTRADO!');</SCRIPT>";
     }
     else{
-        $sql = "INSERT INTO usuarios (usu_nome, usu_descrição, usu_ativo,) VALUES('$nome', '$desrição','n')";
+        $sql = "INSERT INTO produto (pro_nome, pro_produto, pro_valor, pro_descrição) 
+        VALUES('$nome', '$produto', '$valor' , '$descrição','n')";
         mysqli_query($link,$sql);
-        header("location: listausuario.php");
+        header("Location: listaproduto.php");
     }
 
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css">
-    <title>CADASTRA USUARIOS</title>
+    <title>CADASTRA PRODUTO</title>
 </head>
 <body>
     <a href="homesistema.html"><input type="button" id="meuhome" value="HOME SISTEM"></a>
     <div>
         <!-- script para mostrar senha-->
         <script>
-            function mostrarsenha(){
-                var tipo = document.getElementById("senha");
-                if(tipo.type == "password"){
+            function mostrarproduto(){
+                var tipo = document.getElementById("produto");
+                if(tipo.type == "text"){
                     tipo.type = "text";                                      
             }
             else{
-                tipo.type = "password";
+                tipo.type = "text";
             }
         }
             </script>
 
             <form action="cadastrausuario.php" method="POST">
-                <h1>CADASTRO DE USUARIOS</h1>
+                <h1>CADASTRO DE PRODUTO</h1>
                 <input type="text" name="nome" placeholder="NOME">
                 <P></p>
-                <input type="password" name="senha" placeholder="SENHA">
-                <img id="olinho" onclick="mostrarsenha()" src="assets/eye.svg">
+                <input type="text" name="produto" placeholder="PRODUTO  ">
+                <p></p>
+                <input type="text" name="valor" placeholder="VALOR">
+                <p></p>
+                <input type="text" name="descrição" placeholder="DESCRIÇÃO">
                 <p></p>
                 <input type="submit" name="cadastrar" id="cadastrar" value="CADASTRAR">
                 

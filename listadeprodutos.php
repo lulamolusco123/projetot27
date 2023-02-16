@@ -4,25 +4,12 @@ include("conectadb.php");
 
 //passa a instrução para o banco de dados
 //função da instrução: listar todos os conteudos da tabela usuarios
-$sql = "SELECT * FROM usuarios WHERE usu_ativo = 's'";
+$sql = "SELECT * FROM produto WHERE list_ativo = 's'";
 $resultado = mysqli_query($link, $sql);
 $ativo = "s";
-
-if($_SERVER['REQUEST_METHOD']=='POST'){
-    $ativo = $_POST['ativo'];
-    if($ativo == 's'){
-        $sql = "SELECT * FROM usuarios WHERE usu_ativo = 's'";
-        $resultado = mysqli_query($link, $sql);
-    }
-    else{
-        $sql = "SELECT * FROM usuarios WHERE usu_ativo = 'n'";
-        $resultado = mysqli_query($link, $sql);
-    }
-}
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,18 +18,12 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
-    <form action="listausuario.php" method="post">
-    <input type="radio" name="ativo" value="s" required onclick="submit()" <?=$ativo=='s'?"checked":""?>>ATIVO<br>
-    <input type="radio" name="ativo" value="s" required onclick="submit()" <?=$ativo=='s'?"checked":""?>>INATIVO
-</form>
-    
+<a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
     <div class="container">
-        
-        <table border="1">
+    <table border="1">
             <tr>
                 <th>NOME</th>
-                <th>ALTERAR DADOS</th>
+                <th></th>
                 <th>EXCLUIR USUARIO</th>
             </tr>
             <?php
