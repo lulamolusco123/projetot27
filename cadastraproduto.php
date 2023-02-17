@@ -2,13 +2,13 @@
 //coleta as variaveis do name do html e abre a conecção com banco
 if($_SERVER["REQUEST_METHOD"] =="POST"){
     $nome = $_POST['nome'];
-    $produto = $_POST['produto'];
-    $valor = $_POST['valor'];
-    $descrição = $_POST['descrição'];
+    $descricao = $_POST['descricao'];
+    $preco = $_POST['preco'];
+    $quantidade = $_POST['quantidade'];
     include("conectadb.php");
     
     
-    $sql ="SELECT COUNT(pro_id) from produto WHERE usu_nome = '$nome'";
+    $sql ="SELECT COUNT(pro_id) from produtos WHERE pro_nome = '$nome'";
     $resultado = mysqli_query($link,$sql);
     while($tbl = mysqli_fetch_array($resultado)){
         $cont = $tbl[0];
@@ -17,10 +17,9 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         echo"<script>window.alert('PRODUTO JÁ CADASTRADO!');</SCRIPT>";
     }
     else{
-        $sql = "INSERT INTO produto (pro_nome, pro_produto, pro_valor, pro_descrição) 
-        VALUES('$nome', '$produto', '$valor' , '$descrição','n')";
+        $sql = "INSERT INTO produtos (pro_nome, pro_descricao, pro_preco, pro_quantidade) VALUES('$nome', '$descricao', '$preco' , '$quantidade' )";
         mysqli_query($link,$sql);
-        header("Location: listaproduto.php");
+        header("Location: listadeprodutos.php");
     }
 
 }
@@ -50,15 +49,15 @@ if($_SERVER["REQUEST_METHOD"] =="POST"){
         }
             </script>
 
-            <form action="cadastrausuario.php" method="POST">
+            <form action="cadastraproduto.php" method="POST">
                 <h1>CADASTRO DE PRODUTO</h1>
                 <input type="text" name="nome" placeholder="NOME">
                 <P></p>
-                <input type="text" name="produto" placeholder="PRODUTO  ">
+                <input type="text" name="descricao" placeholder="DESCRIÇÃO">
                 <p></p>
-                <input type="text" name="valor" placeholder="VALOR">
+                <input type="text" name="preco" placeholder="PRECO">
                 <p></p>
-                <input type="text" name="descrição" placeholder="DESCRIÇÃO">
+                <input type="text" name="quantidade" placeholder="QUANTIDADE">
                 <p></p>
                 <input type="submit" name="cadastrar" id="cadastrar" value="CADASTRAR">
                 
