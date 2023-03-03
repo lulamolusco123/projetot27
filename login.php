@@ -1,32 +1,28 @@
 <?php
-//
-#
-#CAPTURA VARIÁVEIS UTILIZANDO O MÉTODO POST
+//captura variaveis ultilizando o methodo post
 if($_SERVER['REQUEST_METHOD']=="POST"){
-    $nome = $_POST['nome']; #captura varíavel que está no name="nome" html
-    $password = $_POST['password']; #captura variável que está no name="password" html
-    include("conectadb.php"); #include chama a conexão com o banco de dados no script conectadb.php
+    $nome = $_POST['nome']; //captura variavel que esta no name="nome" html
+    $password = $_POST['password']; //captura variavel que esta no name="password" html
+    include("conectadb.php"); //include chama a conecção com o banco de dados no  script conectadb.php
 
     #CONSULTA SQL PARA VERIFICAR USUARIO CADASTRADO
-    #instrução de comunicação com o banco de dados
+    //instrução de comunicação com o banco de dadossql para verificar
     $sql = "SELECT COUNT(usu_id) FROM usuarios WHERE usu_nome = '$nome' AND usu_senha ='$password' AND usu_ativo = 's'";
-    #coleta o valor da consulta e cria um array para armazenar
+    //coleta o valor da consulta e cria um array para arrumar
     $resultado = mysqli_query($link,$sql);
+    
     while($tbl = mysqli_fetch_array($resultado)){
-        $cont = $tbl[0]; #armazena o valor da coluna no caso a [0]
+        $cont = $tbl[0];//armazena o valor da coluna no caso a [0]
     }
-    #Verifica se o resultado do cont é 0 ou 1
-    #Se 0 o Usuario ou Senha estão incorretos
+    //verifica se o resultado do cont é 0 ou 1
+    //se 0
     if($cont==1){
-        header("Location: homesistema.html"); #Se usuario e senha corretos, vá para homesistema
+        header("Location: homesistema.html");
     }
     else{
-        echo"<script>window.alert('USUARIOS OU SENHA INCORRETOS!');</script>"; # se incorreto apresenta o erro
+        echo"<script>window.alert('USUARIOS OU SENHA INCORRETOS!');</script>";
     }
 }
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +56,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
             <input type="text" name="nome" id="nome" placeholder="Nome">
             <p></p>
             <input type="password" id="senha" name="password" placeholder="Senha">
-            <!-- abaixo está a função onclick chamando o script de javascript Il VVVVVVVVV -->
+            <!-- abaixo esta a função onclick chamando o script de javascript Ii VVVVV -->
             <img id="olinho" onclick="mostrarsenha()" src="assets/eye.svg">
             <p></p>
             <input type="submit" name="login" value="LOGIN">

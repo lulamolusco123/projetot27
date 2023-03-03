@@ -1,56 +1,96 @@
 <?php
-#Coleta as variáveis do name do html e abre a conexão com Banco
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $nome = $_POST['nome'];
-    $drescicao=$_POST['descricao'];
-    $quantidade=$_POST['quantidade'];
-    $preco=$_POST['preco'];
-    include("conectadb.php");
-#variaveis para coletar informaçoes no banco de dadods sql
-    $sql ="SELECT COUNT(prod_id) from produtos WHERE prod_nome = '$nome'";
-    $resultado = mysqli_query($link,$sql);
-    while($tbl = mysqli_fetch_array($resultado)){
-        $cont = $tbl[0];
-    }
-    #Verificação visual se produto já existe no banco de dados ou não.
-    if($cont==1){
-        echo"<script>window.alert('PRODUTO JÁ CADASTRADO!');</script>";
-    }
-    // mostra o alerta se o produto com as memsas informaçoes ja existe no banco de dados
-    else{
-        $sql = "INSERT INTO produtos (prod_nome, prod_desc,prod_quant,prod_prec) VALUES('$nome', '$drescicao','$quantidade',' $preco','n')";
-        mysqli_query($link,$sql);
-        header("Location: listaproduto.php");
-    }
-    // o esle insere as informaçao no listaproduto.php
+include("conectadb.php");
+//coleta as variaveis do name do html e abre a conecção com banco
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $nome = $_POST["nome"];
+    $descricao = $_POST["descricao"];
+    $quantidade = $_POST["quantidade"];
+    $preco = $_POST["preco"];
+    $foto1 = $_POST["foto1"];
+    #$foto2 = $_POST["foto2"];
 
+    if ($foto1 == "")
+        $img = "semfoto.png";
+
+   
+    
+        if ($foto1 == "")
+        $img = "semfoto.png";
+
+    #VERIFICA SE PRODUTO ESTÁ CADASTRADO
+    $sql = "SELECT COUNT(pro_id) FROM produtos WHERE pro_nome = '$nome'";
+    $resultado = mysqli_query($link, $sql);
+
+    while ($tbl = mysqli_fetch_array($resultado)) {
+        $cont = $tbl[0];
+        if ($cont == 0) {
+            $sql = "INSERT INTO produtos(pro_nome, pro_descricao, pro_quantidade, pro_preco, pro_ativo, imagem1) VALUES('$nome', '$descricao', '$quantidade', '$preco', 's', '$foto1')";
+            mysqli_query($link, $sql);
+            echo($cont);
+            header("Location: listaproduto.php");
+            exit();
+            
+        } else {
+            echo "<script>window.alert('PRODUTO JÁ CADASTRADO!');</script>";
+        }
+    }
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo.css">
-    <title>CADASTRO DE PRODUTOS</title>
+    <link rel="stylesheet" href="newestilo.css">
+    <title>CADASTRA PRODUTO</title>
 </head>
 <body>
-    <a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
-   
-    </script>
-<!-- aqui é a interface do usuario -->
-    <form action="cadastraproduto.php" method="POST">
-        <h1>CADASTRO DE produtos</h1>
-        <input type="text" name="nome" id="nome" placeholder="NOME" required>
-        <p></p>
-        <input type="text" name="desc" id="desc" placeholder="DESCRIAÇÃO" required>
-        <input type="text" name="quant" id="quant" placeholder="QUANTIDADE" required>
-        <input type="text" name="preco" id="preco" placeholder="VALOR" required>
-        <p></p>
-        <input type="submit" name="cadastrar" id="cadastrar" value="CADASTRAR">
-    </form>
+    <a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEM"></a>
+    <div>
+        <!-- script para mostrar senha-->
+        <script>
+            function mostrarproduto(){
+                var tipo = document.getElementById("produto");
+                if(tipo.type == "text"){
+                    tipo.type = "text";                                      
+            }
+            else{
+                tipo.type = "text";
+            }
+            
+        }
+            </script>
+
+<form action="cadastraproduto.php" method="post">
+            <label>NOME</label>
+            <input type="text" name="nome">
+            <br></br>
+            <label>DESCRIÇÃO</label>
+            <input type="text" name="descricao">
+            <br></br>
+            <label>QUANTIDADE</label>
+            <input type="number" name="quantidade">
+            <br></br>
+            <label>PRECO</label>
+            <input type="number" name="preco">
+            <br></br>
+
+            <!-- BLOCO DE CÓDIGO NOVO -->
+            <label>IMAGEM</label>
+            <!-- <input type="file" name="foto1" id="img1" onchange="foto1()"> -->
+            <input type="file" name="foto1" id="img1">
+            <img src="img/$foto1.png" width="100px" id="foto1a">
+
+            <br>
+            <input type="submit" value="CADASTRAR">
+
+        </form>
+        <script>
+            function foto1() {
+                document.getElementById("foto1a").src = "img/"(document.getElementById("img1").value).slice(12);
+            }
+        </script>
     </div>
 </body>
 </html>

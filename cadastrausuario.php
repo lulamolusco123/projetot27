@@ -1,4 +1,3 @@
-
 <?php
 #Coleta as variáveis do name do html e abre a conexão com Banco
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -6,11 +5,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $senha = $_POST['senha'];
     include("conectadb.php");
 
-    #VERIFICA USUARIO EXISTENTE
-    $sql ="SELECT COUNT(usu_id) from usuarios WHERE usu_nome = '$nome' AND usu_senha = '$senha'";
-    $resultado = mysqli_query($link,$sql);
-    while($tbl = mysqli_fetch_array($resultado)){
-        $cont = $tbl[0];
+
+   #VERIFICA USUARIO EXISTENTE
+   $sql ="SELECT COUNT(usu_id) from usuarios WHERE usu_nome = '$nome' AND usu_senha = '$senha'";
+   $resultado = mysqli_query($link,$sql);
+   while($tbl = mysqli_fetch_array($resultado)){
+       $cont = $tbl[0];
     }
     #Verificação visual se usuario existe ou não.
     if($cont==1){
@@ -31,11 +31,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="newestilo.css">
     <title>CADASTRO DE USUARIOS</title>
 </head>
 <body>
-    <a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
+<a href="homesistema.html"><input type="button" id="menuhome" value="HOME SISTEMA"></a>
     <div>
         <!-- script para mostrar senha-->
     <script>
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     </script>
 
-    <form action="cadastrausuario.php" method="POST">
+<form action="cadastrausuario.php" method="POST">
         <h1>CADASTRO DE USUARIOS</h1>
         <input type="text" name="nome" id="nome" placeholder="NOME" required>
         <p></p>
