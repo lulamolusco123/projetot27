@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <h1>CADASTRO DE USUARIOS</h1>
         <input type="text" name="nome" id="nome" placeholder="NOME" required>
         <p></p>
-        <input type="password" id="senha" name="senha" placeholder="SENHA" required>
+        <input type="document" id="cpf" name="cpf" placeholder="CPF" required>
         <img id="olinho" onclick="mostrasenha()" src="assets/eye.svg">
         <p></p>
         <input type="submit" name="cadastrar" id="cadastrar" value="CADASTRAR">

@@ -6,17 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $descricao = $_POST["descricao"];
     $quantidade = $_POST["quantidade"];
     $preco = $_POST["preco"];
-    $foto1 = $_POST["foto1"];
-    #$foto2 = $_POST["foto2"];
-
-    if ($foto1 == "")
-        $img = "semfoto.png";
-
-   
-    
-        if ($foto1 == "")
-        $img = "semfoto.png";
-
+   #criptogra a foto para o anco de dados
+   if(isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK){
+    $imagen_temp = $_FILES['imagem']['tmp_name'];
+    $imagem = file_get_contents($imagem_temp);
+    $imagem_based64 = base64_encode($imagem);
+   }
     #VERIFICA SE PRODUTO ESTÁ CADASTRADO
     $sql = "SELECT COUNT(pro_id) FROM produtos WHERE pro_nome = '$nome'";
     $resultado = mysqli_query($link, $sql);
